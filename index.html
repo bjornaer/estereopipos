@@ -1,12 +1,438 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>estereopipos | Ropa para pipos, sin estereotipos</title>
+<meta name="description" content="Ropa infantil sin género, lista para jugar y hecha con telas de producción local. Prendas que respetan la infancia.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&family=DM+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --papel:#E4EBD8;
+    --tinta:#1E2A22;
+    --tomate:#E4572E;
+    --mostaza:#F2B705;
+    --ultramar:#2D4CC8;
+    --violeta:#7A4FD1;
+    --acento:var(--tomate);
+    --display:"Bricolage Grotesque","Trebuchet MS",sans-serif;
+    --texto:"Instrument Sans",system-ui,-apple-system,sans-serif;
+    --etiqueta:"DM Mono","Courier New",monospace;
+    --borde:2px solid var(--tinta);
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--papel);
+    color:var(--tinta);
+    font-family:var(--texto);
+    font-size:17px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{max-width:100%;display:block;}
+  a{color:inherit;}
+  :focus-visible{outline:3px solid var(--ultramar);outline-offset:3px;}
+
+  .contenedor{width:min(1080px,92vw);margin-inline:auto;}
+
+  /* Etiqueta de prenda: el motivo que se repite en toda la pagina */
+  .etiqueta{
+    font-family:var(--etiqueta);
+    font-size:.72rem;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    display:inline-block;
+    padding:.3em .7em;
+    border:1px solid var(--tinta);
+    border-radius:2px;
+    background:transparent;
+  }
+
+  /* ---------- Barra superior ---------- */
+  .barra{
+    border-bottom:var(--borde);
+    padding:.9rem 0;
+    position:sticky;
+    top:0;
+    background:var(--papel);
+    z-index:10;
+  }
+  .barra .contenedor{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:1rem;
+    flex-wrap:wrap;
+  }
+  .logo{
+    font-family:var(--display);
+    font-weight:800;
+    font-size:1.15rem;
+    letter-spacing:-.02em;
+    text-decoration:none;
+  }
+  .menu{display:flex;gap:1.2rem;flex-wrap:wrap;}
+  .menu a{
+    font-family:var(--etiqueta);
+    font-size:.75rem;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    text-decoration:none;
+    padding-bottom:2px;
+    border-bottom:2px solid transparent;
+  }
+  .menu a:hover{border-bottom-color:var(--acento);}
+
+  /* ---------- Portada ---------- */
+  .portada{padding:clamp(3rem,9vw,6rem) 0 clamp(2.5rem,6vw,4rem);}
+  .marca{
+    font-family:var(--display);
+    font-weight:800;
+    font-size:clamp(2.6rem,11vw,7rem);
+    line-height:.95;
+    letter-spacing:-.03em;
+    margin:1.2rem 0 0;
+    word-break:break-word;
+  }
+  .marca .tachado{
+    position:relative;
+    opacity:.35;
+  }
+  .marca .tachado::after{
+    content:"";
+    position:absolute;
+    left:-.02em;right:-.02em;
+    top:52%;
+    height:.07em;
+    background:var(--tomate);
+    transform:rotate(-3deg);
+  }
+  .marca .reemplazo{color:var(--tomate);}
+  .bajada{
+    font-size:clamp(1.05rem,2.6vw,1.4rem);
+    max-width:32ch;
+    margin:1.6rem 0 2rem;
+  }
+  .acciones{display:flex;gap:.8rem;flex-wrap:wrap;}
+  .boton{
+    display:inline-block;
+    font-family:var(--etiqueta);
+    font-size:.78rem;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    text-decoration:none;
+    padding:.85em 1.4em;
+    border:var(--borde);
+    border-radius:100px;
+    background:var(--tinta);
+    color:var(--papel);
+    transition:transform .15s ease, background .15s ease;
+  }
+  .boton:hover{transform:translateY(-2px);background:var(--tomate);border-color:var(--tomate);}
+  .boton.hueco{background:transparent;color:var(--tinta);}
+  .boton.hueco:hover{background:var(--mostaza);border-color:var(--tinta);color:var(--tinta);}
+
+  /* Cinta de colores: ningun color tiene genero */
+  .cinta{
+    display:flex;
+    border-top:var(--borde);
+    border-bottom:var(--borde);
+    margin-top:clamp(2rem,5vw,3.5rem);
+  }
+  .cinta span{flex:1;height:26px;}
+
+  /* ---------- Secciones ---------- */
+  section{padding:clamp(3rem,8vw,5.5rem) 0;border-bottom:var(--borde);}
+  h2{
+    font-family:var(--display);
+    font-weight:700;
+    font-size:clamp(1.8rem,5vw,3rem);
+    line-height:1.05;
+    letter-spacing:-.02em;
+    margin:1rem 0 1.2rem;
+    max-width:20ch;
+  }
+  .parrafo{max-width:58ch;margin:0 0 1rem;}
+
+  .grilla{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    gap:1.2rem;
+    margin-top:2.5rem;
+  }
+  .principio{
+    border:var(--borde);
+    border-radius:14px;
+    padding:1.4rem 1.3rem 1.6rem;
+    background:#F3F6EC;
+  }
+  .principio h3{
+    font-family:var(--display);
+    font-weight:700;
+    font-size:1.25rem;
+    margin:.9rem 0 .5rem;
+  }
+  .principio p{margin:0;font-size:.95rem;}
+  .principio:nth-child(1) .etiqueta{background:var(--mostaza);}
+  .principio:nth-child(2) .etiqueta{background:var(--tomate);color:#fff;border-color:var(--tomate);}
+  .principio:nth-child(3) .etiqueta{background:var(--ultramar);color:#fff;border-color:var(--ultramar);}
+  .principio:nth-child(4) .etiqueta{background:var(--violeta);color:#fff;border-color:var(--violeta);}
+
+  /* ---------- Coleccion ---------- */
+  .prenda{
+    border:var(--borde);
+    border-radius:14px;
+    overflow:hidden;
+    background:#F3F6EC;
+    display:flex;
+    flex-direction:column;
+  }
+  .muestra{
+    height:190px;
+    display:flex;
+    align-items:flex-end;
+    justify-content:flex-end;
+    padding:.8rem;
+    border-bottom:var(--borde);
+  }
+  .muestra span{
+    font-family:var(--etiqueta);
+    font-size:.7rem;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    background:var(--papel);
+    border:1px solid var(--tinta);
+    border-radius:2px;
+    padding:.25em .6em;
+  }
+  .m1{background:repeating-linear-gradient(45deg,var(--mostaza) 0 22px,#F7CB45 22px 44px);}
+  .m2{background:repeating-linear-gradient(0deg,var(--ultramar) 0 26px,#3C5CD8 26px 52px);}
+  .m3{background:radial-gradient(circle at 30% 35%,var(--violeta) 0 46px,transparent 46px),radial-gradient(circle at 72% 70%,var(--tomate) 0 38px,transparent 38px),#EDE7DA;}
+  .prenda .cuerpo{padding:1.1rem 1.3rem 1.5rem;}
+  .prenda h3{font-family:var(--display);font-weight:700;font-size:1.2rem;margin:0 0 .4rem;}
+  .prenda p{margin:0 0 .8rem;font-size:.95rem;}
+  .talles{font-family:var(--etiqueta);font-size:.75rem;letter-spacing:.08em;}
+
+  /* ---------- Produccion local ---------- */
+  .dos-columnas{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:clamp(1.5rem,5vw,3.5rem);
+    align-items:start;
+  }
+  .ficha{
+    border:var(--borde);
+    border-radius:14px;
+    padding:1.4rem;
+    background:#F3F6EC;
+    font-family:var(--etiqueta);
+    font-size:.85rem;
+  }
+  .ficha dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:.55rem 1rem;}
+  .ficha dt{text-transform:uppercase;letter-spacing:.1em;font-size:.7rem;opacity:.65;align-self:center;}
+  .ficha dd{margin:0;}
+
+  /* ---------- Novedades ---------- */
+  .aviso{background:var(--tinta);color:var(--papel);border-bottom:none;}
+  .aviso h2{color:var(--papel);}
+  .aviso .parrafo{opacity:.85;}
+  .formulario{display:flex;gap:.7rem;flex-wrap:wrap;margin-top:1.8rem;}
+  .formulario input{
+    flex:1 1 260px;
+    font-family:var(--texto);
+    font-size:1rem;
+    padding:.85em 1.1em;
+    border:2px solid var(--papel);
+    border-radius:100px;
+    background:transparent;
+    color:var(--papel);
+  }
+  .formulario input::placeholder{color:rgba(228,235,216,.6);}
+  .formulario button{
+    font-family:var(--etiqueta);
+    font-size:.78rem;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    padding:.9em 1.6em;
+    border:2px solid var(--mostaza);
+    border-radius:100px;
+    background:var(--mostaza);
+    color:var(--tinta);
+    cursor:pointer;
+    transition:transform .15s ease;
+  }
+  .formulario button:hover{transform:translateY(-2px);}
+  .letra-chica{font-family:var(--etiqueta);font-size:.72rem;opacity:.7;margin-top:1rem;}
+
+  /* ---------- Pie ---------- */
+  footer{padding:2.5rem 0;font-size:.9rem;}
+  .pie-grilla{display:flex;justify-content:space-between;gap:1.5rem;flex-wrap:wrap;align-items:flex-end;}
+  footer a{text-decoration:none;border-bottom:1px solid var(--tinta);}
+  footer ul{list-style:none;margin:0;padding:0;display:flex;gap:1.1rem;flex-wrap:wrap;}
+
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none !important;scroll-behavior:auto !important;}
+  }
+</style>
 </head>
 <body>
-    <h1>Welcome to estereopipos</h1>
-    <p>This is the index page for the repository.</p>
+
+<header class="barra">
+  <div class="contenedor">
+    <a class="logo" href="#">estereopipos</a>
+    <nav class="menu" aria-label="Principal">
+      <a href="#manifiesto">Manifiesto</a>
+      <a href="#coleccion">Colección</a>
+      <a href="#taller">Dónde se hace</a>
+      <a href="#novedades">Novedades</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <section class="portada" style="border-bottom:none;">
+    <div class="contenedor">
+      <span class="etiqueta">Ropa infantil sin género</span>
+      <h1 class="marca">estereo<span class="tachado">tipos</span><span class="reemplazo">pipos</span></h1>
+      <p class="bajada">Prendas hechas para trepar, pintar, revolcarse y volver a empezar. Sin sección de nenas ni sección de nenes.</p>
+      <div class="acciones">
+        <a class="boton" href="#coleccion">Ver la colección</a>
+        <a class="boton hueco" href="#taller">Cómo se hace</a>
+      </div>
+    </div>
+    <div class="cinta" aria-hidden="true">
+      <span style="background:var(--tomate)"></span>
+      <span style="background:var(--mostaza)"></span>
+      <span style="background:var(--ultramar)"></span>
+      <span style="background:var(--violeta)"></span>
+      <span style="background:#3F9A6B"></span>
+      <span style="background:#E58BB0"></span>
+    </div>
+  </section>
+
+  <section id="manifiesto">
+    <div class="contenedor">
+      <span class="etiqueta">01 · Manifiesto</span>
+      <h2>Ningún color tiene género. Ninguna prenda decide quién sos.</h2>
+      <p class="parrafo">Diseñamos pensando en cuerpos que crecen y en criaturas que juegan, no en categorías que alguien inventó para vender el doble. Cada prenda entra en cualquier ropero.</p>
+
+      <div class="grilla">
+        <article class="principio">
+          <span class="etiqueta">Sin género</span>
+          <h3>Un solo catálogo</h3>
+          <p>Cortes, colores y estampas disponibles para toda la infancia. Elige quien la usa, no la góndola.</p>
+        </article>
+        <article class="principio">
+          <span class="etiqueta">Lista para jugar</span>
+          <h3>Aguanta la plaza</h3>
+          <p>Costuras reforzadas, rodillas dobles, telas que soportan barro, témpera y lavarropas.</p>
+        </article>
+        <article class="principio">
+          <span class="etiqueta">Producción local</span>
+          <h3>Telas de acá</h3>
+          <p>Tejidos y confección de talleres cercanos, con trabajo registrado y precio pagado a tiempo.</p>
+        </article>
+        <article class="principio">
+          <span class="etiqueta">Respeto</span>
+          <h3>La infancia no es un adorno</h3>
+          <p>Nada de frases sobre el cuerpo, ropa incómoda ni prendas pensadas para la foto y no para el día.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="coleccion">
+    <div class="contenedor">
+      <span class="etiqueta">02 · Colección</span>
+      <h2>Poca ropa, bien hecha, que combina entre sí.</h2>
+      <p class="parrafo">Una base corta y honesta: todo se mezcla con todo, se hereda entre hermanos y se pasa a la familia de al lado.</p>
+
+      <div class="grilla">
+        <article class="prenda">
+          <div class="muestra m1" aria-hidden="true"><span>Algodón 100%</span></div>
+          <div class="cuerpo">
+            <h3>Remeras de todos los días</h3>
+            <p>Jersey grueso, cuello que no se deforma, manga corta y larga.</p>
+            <p class="talles">Talles 2 a 12</p>
+          </div>
+        </article>
+        <article class="prenda">
+          <div class="muestra m2" aria-hidden="true"><span>Frisa de algodón</span></div>
+          <div class="cuerpo">
+            <h3>Buzos con bolsillo canguro</h3>
+            <p>Amplios, sin apliques que raspen, puños que vuelven a su lugar.</p>
+            <p class="talles">Talles 2 a 12</p>
+          </div>
+        </article>
+        <article class="prenda">
+          <div class="muestra m3" aria-hidden="true"><span>Gabardina liviana</span></div>
+          <div class="cuerpo">
+            <h3>Pantalones de trepar</h3>
+            <p>Cintura elastizada, rodilla reforzada, bolsillos hondos de verdad.</p>
+            <p class="talles">Talles 2 a 12</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="taller">
+    <div class="contenedor dos-columnas">
+      <div>
+        <span class="etiqueta">03 · Dónde se hace</span>
+        <h2>Cadena corta, nombres conocidos.</h2>
+        <p class="parrafo">Compramos tela a productores locales y cosemos en talleres con los que trabajamos de forma directa. Sin intermediarios que se queden con el margen ni condiciones que nadie quiere mirar.</p>
+        <p class="parrafo">Producimos en tandas chicas para no acumular stock ni saldos. Cuando una prenda se agota, se repone recién en la temporada siguiente.</p>
+      </div>
+      <div class="ficha">
+        <dl>
+          <dt>Tela</dt><dd>Tejidos de origen local</dd>
+          <dt>Confección</dt><dd>Talleres propios y asociados</dd>
+          <dt>Tandas</dt><dd>Producción limitada por temporada</dd>
+          <dt>Cuidado</dt><dd>Lavar a 30°, secar a la sombra</dd>
+          <dt>Vida útil</dt><dd>Pensada para pasar de mano en mano</dd>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section id="novedades" class="aviso">
+    <div class="contenedor">
+      <span class="etiqueta" style="border-color:var(--papel);color:var(--papel)">04 · Novedades</span>
+      <h2>Avisamos cuando abre la próxima tanda.</h2>
+      <p class="parrafo">Un correo cada tanto: nuevos talles, colores y fechas de producción. Nada más.</p>
+      <form class="formulario" action="#" method="post">
+        <label for="correo" class="etiqueta" style="border:none;padding:0;position:absolute;left:-9999px;">Correo electrónico</label>
+        <input id="correo" type="email" name="correo" placeholder="tu@correo.com" required>
+        <button type="submit">Quiero enterarme</button>
+      </form>
+      <p class="letra-chica">Solo usamos el correo para avisos de la marca. Se puede cancelar cuando quieras.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="contenedor pie-grilla">
+    <div>
+      <p style="margin:0 0 .4rem;font-family:var(--display);font-weight:800;font-size:1.1rem;">estereopipos</p>
+      <p style="margin:0;">Ropa para pipos, sin estereotipos.</p>
+    </div>
+    <ul>
+      <li><a href="#">Instagram</a></li>
+      <li><a href="mailto:hola@estereopipos.com">hola@estereopipos.com</a></li>
+      <li><a href="#">Guía de talles</a></li>
+      <li><a href="#">Cambios y devoluciones</a></li>
+    </ul>
+    <p style="margin:0;font-family:var(--etiqueta);font-size:.72rem;">© 2026 estereopipos</p>
+  </div>
+</footer>
+
 </body>
 </html>
